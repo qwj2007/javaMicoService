@@ -18,6 +18,6 @@ public class TestController {
     public String getCustomer()
     {
         String name="sfdsfdsf";
-       return testClient.getName();
+       return "Customer"+testClient.getName();
     }
 }
