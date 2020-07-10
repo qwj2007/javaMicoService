@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: zuul-service
+server:
+  port: 6069
+  tomcat:
+      #context-path: /xycar
+      #access-log-enabled: true
+      #basedir: ${logging.path}
+      uri-encoding: UTF-8
+      connection-timeout: 5000
+      acceptCount: 100
+      threads:
+        max: 200
+eureka:
+  client:
+    healthcheck:
+      enabled: true
+    service-url:
+     defaultZone: http://192.168.177.140:8080/eureka/eureka,http://192.168.177.141:8080/eureka/eureka,
+    registry-fetch-interval-seconds: 30
+  instance:
+    instance-id:  ${spring.application.name}:${spring.cloud.client.ip-address}:${spring.application.instance_id:${server.port}}
+    prefer-ip-address: true
+    lease-expiration-duration-in-seconds: 90
+    leaseRenewalIntervalInSeconds: 30
+
