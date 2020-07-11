@@ -76,7 +76,12 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-hystrix-dashboard</artifactId>
 		</dependency>
-
+		<!--加入到服务监控中-->
+		<dependency>
+			<groupId>de.codecentric</groupId>
+			<artifactId>spring-boot-admin-starter-client</artifactId>
+			<version>2.2.3</version>
+		</dependency>
 		<!--导入jwt相关依赖
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>

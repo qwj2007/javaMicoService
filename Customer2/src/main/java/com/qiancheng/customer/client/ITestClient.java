@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * 时间：2020/7/9
  */
 
-@FeignClient(value = "COM.QIANCHENG.PRODUCER", fallback = TestClientHystrix.class)
+@FeignClient(value = "QIANCHENG-PRODUCER", fallback = TestClientHystrix.class)
 public interface ITestClient {
     @RequestMapping(value = "/producer/test/getName")
     String getName();

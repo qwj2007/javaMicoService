@@ -1,0 +1,23 @@
+server:
+  port: 8000
+spring:
+  application:
+    name: qiancheng-admin-server
+  security:
+    user:
+     name: admin
+     password: 123456
+eureka:
+  client:
+    healthcheck:
+      enabled: true
+    service-url:
+      defaultZone: http://127.0.0.1:7000/eureka
+    registry-fetch-interval-seconds: 30
+  instance:
+    instance-id:  ${spring.application.name}:${spring.cloud.client.ip-address}:${spring.application.instance_id:${server.port}}
+    prefer-ip-address: true
+    lease-expiration-duration-in-seconds: 90
+    leaseRenewalIntervalInSeconds: 30
+    health-check-url-path: /actuator/health
+

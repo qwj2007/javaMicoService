@@ -17,7 +17,8 @@ eureka:
     healthcheck:
       enabled: true
     service-url:
-      defaultZone: http://192.168.177.142:8080/eureka/eureka,http://192.168.177.143:8080/eureka/eureka,
+      #defaultZone: http://192.168.177.142:8080/eureka/eureka,http://192.168.177.143:8080/eureka/eureka,
+      defaultZone: http://127.0.0.1:7000/eureka
     registry-fetch-interval-seconds: 30
   instance:
     instance-id:  ${spring.application.name}:${spring.cloud.client.ip-address}:${spring.application.instance_id:${server.port}}
@@ -36,12 +37,12 @@ zuul:
         #地址方式
         #url: http://192.168.177.142:8080
         #服务方式
-        serviceId: COM.QIANCHENG.CUSTOMER
+        serviceId: qiancheng-customer
     zuul-server02:
         path: /api-b/**
         #url: http://192.168.177.142:8080
         #服务方式
-        serviceId: COM.QIANCHENG.PRODUCER
+        serviceId: qiancheng-producer
   prefix: /api
   #重试
   retryable: true
