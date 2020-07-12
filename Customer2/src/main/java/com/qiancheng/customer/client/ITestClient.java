@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @FeignClient(value = "QIANCHENG-PRODUCER", fallback = TestClientHystrix.class)
 public interface ITestClient {
-    @RequestMapping(value = "/producer/test/getName")
+    @RequestMapping(value = "/test/getName")
     String getName();
 
 }
