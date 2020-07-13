@@ -19,5 +19,5 @@ eureka:
     prefer-ip-address: true
     lease-expiration-duration-in-seconds: 90
     leaseRenewalIntervalInSeconds: 30
-    health-check-url-path: /actuator/health
+    #health-check-url-path: /actuator/health
 
