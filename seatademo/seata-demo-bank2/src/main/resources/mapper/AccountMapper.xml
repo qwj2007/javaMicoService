@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seata.bank2.mapper.bank2.AccountMapper">
+    <resultMap id="BaseResultMap" type="com.seata.bank2.pojo.Account">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="account_name" jdbcType="VARCHAR" property="accountName"/>
+        <result column="account_amount" jdbcType="DECIMAL" property="accountAmount"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, account_name, account_amount
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from account
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from account
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+    <insert id="insert" parameterType="com.seata.bank2.pojo.Account">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into account (account_name, account_amount)
+        values (#{accountName,jdbcType=VARCHAR}, #{accountAmount,jdbcType=DECIMAL})
+    </insert>
+    <insert id="insertSelective" parameterType="com.seata.bank2.pojo.Account">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into account
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="accountName != null">
+                account_name,
+            </if>
+            <if test="accountAmount != null">
+                account_amount,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="accountName != null">
+                #{accountName,jdbcType=VARCHAR},
+            </if>
+            <if test="accountAmount != null">
+                #{accountAmount,jdbcType=DECIMAL},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.seata.bank2.pojo.Account">
+        update account
+        <set>
+            <if test="accountName != null">
+                account_name = #{accountName,jdbcType=VARCHAR},
+            </if>
+            <if test="accountAmount != null">
+                account_amount = #{accountAmount,jdbcType=DECIMAL},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.seata.bank2.pojo.Account">
+    update account
+    set account_name = #{accountName,jdbcType=VARCHAR},
+      account_amount = #{accountAmount,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+
+    <update id="updateAccount" parameterType="com.seata.bank2.pojo.Account">
+    update account
+    set  account_amount = account_amount + #{accountAmount,jdbcType=DOUBLE}
+    where account_name = #{accountName,jdbcType=VARCHAR}
+  </update>
+</mapper>

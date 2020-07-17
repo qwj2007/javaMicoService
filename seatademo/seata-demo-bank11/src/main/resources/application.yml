@@ -1,0 +1,56 @@
+server:
+    port: 8085
+spring:
+  application:
+    name: seata-demo-bank11
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  datasource:
+    #第一个数据源
+      db1:
+        url: jdbc:mysql://127.0.0.1:3306/bank1?serverTimezone=GMT&nullCatalogMeansCurrent=true&characterEncoding=UTF-8&&useSSL=false
+        username: root
+        password: root
+        driver-class-name: com.mysql.jdbc.Driver
+        type: com.alibaba.druid.pool.DruidDataSource
+        filters: stat
+        maxActive: 2
+        initialSize: 1
+        maxWait: 1000
+        minIdle: 1
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxOpenPreparedStatements: 20
+        removeAbandoned: true
+        removeAbandonedTimeout: 1800
+mybatit:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.seata.bank11.pojo
+seata:
+  application-id: ${spring.application.name} # Seata 应用名称，默认使用 ${spring.application.name}
+  tx-service-group: fdfd_tx_group # Seata 事务组, 值为seata-server的file.conf中vgroupMapping后面跟的值，此处为fsp_tx_group
+  client:
+    support:
+      spring:
+        datasource-autoproxy: true
+  # 服务配置项
+  service:
+    # 新版本好像将vgroup-mapping 改为 vgroupMapping
+    vgroupMapping:
+      #重点注意：此处Key对应 tx-service-group 的 Value,  value 默认 default
+      fdfd_tx_group: default
+    disable-global-transaction: false #是否全局事务开关
+  registry:
+    eureka:
+      service-url: http://127.0.0.1:7000/eureka #注册中心地址
+    type: eureka
+
+
+
+
